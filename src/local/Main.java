@@ -8,18 +8,24 @@ public class Main {
     public static void main(String[] args) {
 
         String[] names = {"Сергей", "Михаил", "Руслан","Николай","Ильдар"};
-        String[] lastNames = {"Петров", "Сидоров", "Васильев", "Белов", "Иванов"};
+        String[] wNames = {"Анна", "София", "Ангелина", "Анастасия", "Екатерина"};
+        String[] lastNames = {"Петров(а)", "Сидоров(а)", "Васильев(а)", "Белов(а)", "Иванов(а)"};
         String[] petNames = {"Муся", "Ержан", "Мышь", "Бонни", "Абоба", "Кота нет"};
         String[] departs = {"Маркетинг", "Разработка", "Кадровой", "Обслуживающий"};
         String[] positions = {"Начальник отдела", "Заместитель начальника отдела", "Старший помощник", "Младший помощник"};
 
         ArrayList<Worker> array= new ArrayList<Worker>();
         Random rnd = new Random();
-
+        Boolean sex;
         for(int i = 0; i < 20; i++){
+            if(rnd.nextBoolean())
             array.add(new Worker(names[rnd.nextInt(names.length)], lastNames[rnd.nextInt(lastNames.length)], 20 + rnd.nextInt(35),
-                    "Male", petNames[rnd.nextInt(petNames.length)], departs[rnd.nextInt(departs.length)], positions[rnd.nextInt(positions.length)],
+                    "Муж", petNames[rnd.nextInt(petNames.length)], departs[rnd.nextInt(departs.length)], positions[rnd.nextInt(positions.length)],
                     22000 + rnd.nextInt(70000), 10000 + rnd.nextInt(20000), rnd.nextInt(5)));
+            else
+                array.add(new Worker(wNames[rnd.nextInt(names.length)], lastNames[rnd.nextInt(lastNames.length)], 20 + rnd.nextInt(35),
+                        "Жен", petNames[rnd.nextInt(petNames.length)], departs[rnd.nextInt(departs.length)], positions[rnd.nextInt(positions.length)],
+                        22000 + rnd.nextInt(70000), 10000 + rnd.nextInt(20000), rnd.nextInt(5)));
         }
 
         //Пункт A)
@@ -72,7 +78,7 @@ public class Main {
         //Пункт F)
         Optional<Worker> optionalWorker = array.stream().filter(worker -> worker.getBonus() + worker.getSalary() >= 100000).findAny();
         optionalWorker.ifPresentOrElse(((Worker worker) -> {
-            System.out.println(worker.getName() + " " + worker.getLastName() + " Наносек " + (worker.getSalary()+worker.getBonus()));
+            System.out.println(worker.getName() + " " + worker.getLastName() + " получает " + (worker.getSalary()+worker.getBonus()) + " в наносек");
         }),() ->{
             System.out.println("Компания нищебродов!");
         });
