@@ -41,28 +41,21 @@ public class Main {
         System.out.println();
 
         //Пункт C)
-        List<Worker> underFifty = array.stream().filter(worker -> worker.getAge() < 50 && worker.getPetName().equals("Кота нет")).collect(Collectors.toList());
-        System.out.println("Работники младше 50-ти и без кота: ");
+        List<Worker> underFifty = array.stream().filter(worker -> worker.getAge() < 50).collect(Collectors.toList());
+        System.out.println("Работники младше 50-ти с котом: ");
         if(underFifty.isEmpty())
             System.out.println("Таких работников нет!");
         else
-            for (Worker i:
-                underFifty) {
-            i.showWorker();
-            }
+            underFifty.stream().filter(worker -> !worker.getPetName().equals("Кота нет")).forEach(Worker::showWorker);
         System.out.println();
 
         //Пункт D)
-        List<Worker> aboveFifty = array.stream().filter(worker -> worker.getAge() > 50 && worker.getPetName().equals("Кота нет")).collect(Collectors.toList());
-        System.out.println("Работники старше 50-ти и без кота: ");
+        List<Worker> aboveFifty = array.stream().filter(worker -> worker.getAge() > 50).collect(Collectors.toList());
+        System.out.println("Работники старше 50-ти с котом: ");
         if (aboveFifty.isEmpty())
             System.out.println("Таких работников нет!");
-        else {
-            for (Worker i :
-                    aboveFifty) {
-                i.showWorker();
-            }
-        }
+        else
+            underFifty.stream().filter(worker -> !worker.getPetName().equals("Кота нет")).forEach(Worker::showWorker);
         System.out.println();
 
         //Пункт E)
